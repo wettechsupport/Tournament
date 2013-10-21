@@ -59,6 +59,11 @@ public class MatchList {
         players.add(p);
     }
     
+    public int getPlayerSize()
+    {
+        return players.size();
+    }
+    
     public void trimLastPlayer()
     {
         //Remove the last player in the list
@@ -100,7 +105,10 @@ public class MatchList {
         int size = players.size();  //Instead of calling players.size() repeatedly...save a little processing
         if(size < 4)
         {
-            //Popup(“You do not have enough players.  Minimum is 4.”);
+            JOptionPane.showMessageDialog(ContentJFrame.getInstance(),
+                "You need at least four players to start.",
+                "Notice",
+                JOptionPane.WARNING_MESSAGE);
             return false;
         }
         
@@ -115,24 +123,44 @@ public class MatchList {
         //Correct sizes!
         if(size == 4)
         {
+            matches.ensureCapacity(2);  //two rows
             //Set the number of matches per row- first row has 2,
             //second row has 1, etc.
-            matches.get(0).ensureCapacity(2);  
-            matches.get(1).ensureCapacity(1);  
+            
+            //Create empty rows
+            for(int i = 0; i < 2; i++)
+                matches.get(0).add(new Match());  
+            for(int i = 0; i < 1; i++)
+                matches.get(1).add(new Match());  
 
+            //Fill up the first row
+            matches.get(0).add(new Match(players.get(0), players.get(1)));
+            matches.get(0).add(new Match(players.get(2), players.get(3)));
             currentMatch = matches.get(0).get(0);
             return true;
         }
         
         if(size == 8)
         {
-            matches.ensureCapacity(3);  //Two rows
+            matches.ensureCapacity(3);  //three rows
 
             //Set the number of matches per row- first row has 4,
             //second row has 2, etc.
-            matches.get(0).ensureCapacity(4);  
-            matches.get(1).ensureCapacity(2);  
-            matches.get(2).ensureCapacity(1);
+            //Create empty rows
+            for(int i = 0; i < 4; i++)
+                matches.get(0).add(new Match());  
+            for(int i = 0; i < 2; i++)
+                matches.get(1).add(new Match());  
+            for(int i = 0; i < 1; i++)
+                matches.get(2).add(new Match());  
+            
+            
+            //Fill up the first row
+            matches.get(0).add(new Match(players.get(0), players.get(1)));
+            matches.get(0).add(new Match(players.get(2), players.get(3)));
+            matches.get(0).add(new Match(players.get(4), players.get(5)));
+            matches.get(0).add(new Match(players.get(6), players.get(7)));
+            
             currentMatch = matches.get(0).get(0);
             return true;
         }
@@ -143,10 +171,25 @@ public class MatchList {
 
             //Set the number of matches per row- first row has 4,
             //second row has 2, etc.
-            matches.get(1).ensureCapacity(8);
-            matches.get(1).ensureCapacity(4);  
-            matches.get(2).ensureCapacity(2);  
-            matches.get(3).ensureCapacity(1);
+            for(int i = 0; i < 8; i++)
+                matches.get(0).add(new Match());  
+            for(int i = 0; i < 4; i++)
+                matches.get(1).add(new Match());  
+            for(int i = 0; i < 2; i++)
+                matches.get(2).add(new Match());  
+            for(int i = 0; i < 1; i++)
+                matches.get(3).add(new Match());  
+            
+            //Fill up the first row
+            matches.get(0).add(new Match(players.get(0), players.get(1)));
+            matches.get(0).add(new Match(players.get(2), players.get(3)));
+            matches.get(0).add(new Match(players.get(4), players.get(5)));
+            matches.get(0).add(new Match(players.get(6), players.get(7)));
+            matches.get(0).add(new Match(players.get(8), players.get(9)));
+            matches.get(0).add(new Match(players.get(10), players.get(11)));
+            matches.get(0).add(new Match(players.get(12), players.get(13)));
+            matches.get(0).add(new Match(players.get(14), players.get(15)));
+            
             currentMatch = matches.get(0).get(0);
             return true;
         }
@@ -169,8 +212,11 @@ public class MatchList {
     {
         //Run the match.  This should be called when you press the winner button.
         currentMatch.setWinner(id);
+        
+        //We also need to pass the string of the winner to the lower row...
         setNextCurrentMatch();
     }
+    
     
     public boolean isGameOver()
     {
@@ -181,7 +227,7 @@ public class MatchList {
         
     }
     
-    public MatchList getInstance()
+    public static MatchList getInstance()
     {
         if(instance == null)
             instance = new MatchList();

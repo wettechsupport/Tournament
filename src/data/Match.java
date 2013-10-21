@@ -19,6 +19,12 @@ public class Match {
     {
     }
     
+    public Match(String p1, String p2)
+    {
+        setPlayerName(0, p1);
+        setPlayerName(1, p2);
+    }
+    
     public void setPlayerName(int id, String p)
     {
         players[id] = p;
