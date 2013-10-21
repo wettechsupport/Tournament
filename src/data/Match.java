@@ -18,4 +18,34 @@ public class Match {
     public Match()
     {
     }
+    
+    public void setPlayerName(int id, String p)
+    {
+        players[id] = p;
+    }
+    
+    public String getPlayerID(int id)
+    {
+        return players[id];
+    }
+    
+    public void setWinner(int id)
+    {
+        winner = players[id];
+        winnerID = id;
+    }
+    
+    public String getWinnerName()
+    {
+        return new String(winner);
+        //avoid passing by reference
+    }
+    
+    public int getWinnerID()
+    {
+        return winnerID;
+    }
+            
+    
+    
 }
