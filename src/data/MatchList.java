@@ -36,6 +36,11 @@ public class MatchList {
         
     }
     
+    public ArrayList<String> getPlayers()
+    {
+        return players;
+    }
+    
     public void setNextCurrentMatch()
     {
         //Move on to the next match.  
