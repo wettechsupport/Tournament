@@ -123,13 +123,12 @@ public class MatchList {
         //Correct sizes!
         if(size == 4)
         {
-            matches.ensureCapacity(2);  //two rows
+            for(int i = 0; i < 2; i++)
+                matches.add(new ArrayList<Match>());
             //Set the number of matches per row- first row has 2,
             //second row has 1, etc.
             
             //Create empty rows
-            for(int i = 0; i < 2; i++)
-                matches.get(0).add(new Match());  
             for(int i = 0; i < 1; i++)
                 matches.get(1).add(new Match());  
 
@@ -142,13 +141,12 @@ public class MatchList {
         
         if(size == 8)
         {
-            matches.ensureCapacity(3);  //three rows
+            for(int i = 0; i < 3; i++)
+                matches.add(new ArrayList<Match>());
 
             //Set the number of matches per row- first row has 4,
             //second row has 2, etc.
             //Create empty rows
-            for(int i = 0; i < 4; i++)
-                matches.get(0).add(new Match());  
             for(int i = 0; i < 2; i++)
                 matches.get(1).add(new Match());  
             for(int i = 0; i < 1; i++)
@@ -167,12 +165,11 @@ public class MatchList {
         
         if(size == 16)
         {
-            matches.ensureCapacity(4);  //Four rows
+            for(int i = 0; i < 4; i++)
+                matches.add(new ArrayList<Match>());
 
             //Set the number of matches per row- first row has 4,
             //second row has 2, etc.
-            for(int i = 0; i < 8; i++)
-                matches.get(0).add(new Match());  
             for(int i = 0; i < 4; i++)
                 matches.get(1).add(new Match());  
             for(int i = 0; i < 2; i++)
@@ -212,6 +209,8 @@ public class MatchList {
     {
         //Run the match.  This should be called when you press the winner button.
         currentMatch.setWinner(id);
+        
+        
         
         //We also need to pass the string of the winner to the lower row...
         setNextCurrentMatch();
