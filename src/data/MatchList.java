@@ -128,13 +128,16 @@ public class MatchList {
             //Set the number of matches per row- first row has 2,
             //second row has 1, etc.
             
+            
+            //Fill up the first row
+            matches.get(0).add(new Match(players.get(0), players.get(1)));
+            matches.get(0).add(new Match(players.get(2), players.get(3)));
+            
             //Create empty rows
             for(int i = 0; i < 1; i++)
                 matches.get(1).add(new Match());  
 
-            //Fill up the first row
-            matches.get(0).add(new Match(players.get(0), players.get(1)));
-            matches.get(0).add(new Match(players.get(2), players.get(3)));
+
             currentMatch = matches.get(0).get(0);
             return true;
         }
@@ -146,18 +149,18 @@ public class MatchList {
 
             //Set the number of matches per row- first row has 4,
             //second row has 2, etc.
-            //Create empty rows
-            for(int i = 0; i < 2; i++)
-                matches.get(1).add(new Match());  
-            for(int i = 0; i < 1; i++)
-                matches.get(2).add(new Match());  
-            
             
             //Fill up the first row
             matches.get(0).add(new Match(players.get(0), players.get(1)));
             matches.get(0).add(new Match(players.get(2), players.get(3)));
             matches.get(0).add(new Match(players.get(4), players.get(5)));
             matches.get(0).add(new Match(players.get(6), players.get(7)));
+            
+            //Create empty rows
+            for(int i = 0; i < 2; i++)
+                matches.get(1).add(new Match());  
+            for(int i = 0; i < 1; i++)
+                matches.get(2).add(new Match());  
             
             currentMatch = matches.get(0).get(0);
             return true;
@@ -168,15 +171,6 @@ public class MatchList {
             for(int i = 0; i < 4; i++)
                 matches.add(new ArrayList<Match>());
 
-            //Set the number of matches per row- first row has 4,
-            //second row has 2, etc.
-            for(int i = 0; i < 4; i++)
-                matches.get(1).add(new Match());  
-            for(int i = 0; i < 2; i++)
-                matches.get(2).add(new Match());  
-            for(int i = 0; i < 1; i++)
-                matches.get(3).add(new Match());  
-            
             //Fill up the first row
             matches.get(0).add(new Match(players.get(0), players.get(1)));
             matches.get(0).add(new Match(players.get(2), players.get(3)));
@@ -186,6 +180,15 @@ public class MatchList {
             matches.get(0).add(new Match(players.get(10), players.get(11)));
             matches.get(0).add(new Match(players.get(12), players.get(13)));
             matches.get(0).add(new Match(players.get(14), players.get(15)));
+            
+            //Set the number of matches per row- first row has 4,
+            //second row has 2, etc.
+            for(int i = 0; i < 4; i++)
+                matches.get(1).add(new Match());  
+            for(int i = 0; i < 2; i++)
+                matches.get(2).add(new Match());  
+            for(int i = 0; i < 1; i++)
+                matches.get(3).add(new Match());  
             
             currentMatch = matches.get(0).get(0);
             return true;
@@ -210,6 +213,12 @@ public class MatchList {
         //Run the match.  This should be called when you press the winner button.
         currentMatch.setWinner(id);
         
+        //Pass the current match winner to the below match
+        int targetRow = matchRow + 1;
+        int targetCol = (matchColumn + 1) / 2;
+        int side = (matchColumn + 1) % 2;
+        
+        matches.get(targetRow).get(targetCol).setPlayerName(side, currentMatch.getWinnerName());
         
         
         //We also need to pass the string of the winner to the lower row...
@@ -240,5 +249,20 @@ public class MatchList {
         return currentMatch;
     }
     
+    @Override
+    public String toString()
+    {
+        String s = new String("Match list: \n");
+        for(int row = 0; row < matches.size(); row++)
+        {
+            s += "\nRow " + (row+1) + ": ";
+            for(int col = 0; col < matches.get(row).size(); col++)
+            {
+                s += matches.get(row).get(col).toString();
+            }
+        }
+        
+        return s;
+    }
     
 }

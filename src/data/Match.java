@@ -54,6 +54,11 @@ public class Match {
         return winnerID;
     }
             
+    @Override
+    public String toString()
+    {
+        return "(" + players[0] + " vs " + players[1] + ")";
+    }
     
     
 }

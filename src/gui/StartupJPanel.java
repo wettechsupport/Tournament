@@ -127,7 +127,8 @@ public class StartupJPanel extends javax.swing.JPanel {
         if(i.startMatch() == true)
         {
             //Start next match
-            System.out.println("Starting match");
+            System.out.println("Starting match \n" + i.toString());
+            
         }
     }//GEN-LAST:event_btnStartActionPerformed
 
