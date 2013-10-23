@@ -22,7 +22,7 @@ public class Match {
     
     public Match(String p1, String p2)
     {
-        players = new String[] {"", ""};
+        players = new String[] {"---", "---"};
         setPlayerName(0, p1);
         setPlayerName(1, p2);
     }

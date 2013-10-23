@@ -16,6 +16,7 @@ public class MatchList {
     private static MatchList instance;
     private ArrayList<String> players;
     private ArrayList<ArrayList<Match>> matches;
+    private String tournamentWinner;
     private Match currentMatch;  //Reference: DO NOT INITILIZE
     private int matchColumn;  //horizontal side.  Used to track current match
     private int matchRow;  //vertical side.  Used to track current match.
@@ -26,7 +27,7 @@ public class MatchList {
         matches = new ArrayList<ArrayList<Match>>();
         matchColumn = 0;
         matchRow = 0;
-        
+        tournamentWinner = "";
         //Call in order:
         //addPlayer (until we have all)
         //startMatch()
@@ -50,11 +51,14 @@ public class MatchList {
         matchColumn++;
         if(matchColumn >= colSize)
         {
-            matchColumn = colSize;
+            matchColumn = 0;
             matchRow++;
         }
         
-        currentMatch = matches.get(matchRow).get(matchColumn);
+        if(matchRow >= matches.size())
+            currentMatch = null;
+        else
+            currentMatch = matches.get(matchRow).get(matchColumn);
     }
     
     
@@ -217,17 +221,28 @@ public class MatchList {
     {
         //Run the match.  This should be called when you press the winner button.
         currentMatch.setWinner(id);
-        
+        String w = currentMatch.getWinnerName();
         //Pass the current match winner to the below match
         int targetRow = matchRow + 1;
-        int targetCol = (matchColumn + 1) / 2;
-        int side = (matchColumn + 1) % 2;
+        int targetCol = ((matchColumn) / 2);
+        int side = (matchColumn) % 2;
         
-        matches.get(targetRow).get(targetCol).setPlayerName(side, currentMatch.getWinnerName());
-        
+        try
+        {
+            matches.get(targetRow).get(targetCol).setPlayerName(side, currentMatch.getWinnerName());
+        }
+        catch(Exception e)
+        {
+            //silently fail
+        }
         
         //We also need to pass the string of the winner to the lower row...
         setNextCurrentMatch();
+        
+        if(currentMatch == null)
+        {
+            tournamentWinner = w;
+        }
     }
     
     
@@ -268,6 +283,11 @@ public class MatchList {
         }
         
         return s;
+    }
+    
+    public String getTournamentWinner()
+    {
+        return tournamentWinner;
     }
     
 }
