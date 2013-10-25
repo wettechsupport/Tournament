@@ -51,12 +51,11 @@ public class TestGUI extends JFrame{
         
         //create GribBagLayout and the GridBagLayout Constraints
         GridBagLayout gridBag = new GridBagLayout();
-        GridBagConstraints gBConstraints = new GridBagConstraints();
+        GridBagConstraints gBConstraintTitle = new GridBagConstraints();
         
         //setup gridBag constraint
-        gBConstraints.fill = GridBagConstraints.BOTH;
-        gBConstraints.gridx = 2;
-        gBConstraints.gridy = 2;
+        gBConstraintTitle.fill = GridBagConstraints.CENTER;
+       
         
         tournamentPanel.setLayout(gridBag);
         tournamentPanel.add(tournamentTitle);
