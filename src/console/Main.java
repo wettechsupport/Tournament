@@ -15,8 +15,10 @@ import gui.ContentJFrame;
 public class Main {
     public static void main(String[] args)
     {
-        ContentJFrame start = ContentJFrame.getInstance();
+        //ContentJFrame start = ContentJFrame.getInstance();
+        //Hide the GUI for now.  
         //Start the GUI up
+        
         
         //Start the console
         Console con = new Console();

@@ -30,6 +30,10 @@ public class Console {
         
         System.out.println("The tournament is over.  The winner is: ");
         System.out.println(data.getTournamentWinner());
+        
+        System.out.println("Press enter (or type anything) to quit.");
+        scan.nextLine();
+        scan.close();
     }
     
     public void insertNames()
